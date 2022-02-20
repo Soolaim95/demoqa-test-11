@@ -3,31 +3,35 @@ package tests;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import pages.RegistrationPage;
 
 import java.io.File;
 
-import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class TestboxTest {
+public class RegistrationFormWithPageObjectsTests {
+
+    RegistrationPage registrationPage = new RegistrationPage();
+    String firstName = "John Michael";
+    String lastName = "Smith";
+    String userEmail = "qwerty@gmail.com";
 
     @BeforeAll
     static void beforeAll() {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.browserSize = "1920x1080";
     }
-
     @Test
     void successFillTest() {
         open("/automation-practice-form");
         $(".main-header").shouldHave(text("Practice Form"));
 
-        $("#firstName").setValue("John Michael");
-        $("#lastName").setValue("Smith");
-        $("#userEmail").setValue("qwerty@gmail.com");
+        registrationPage.setFirstName(firstName);
+        registrationPage.setLastName(lastName);
+        registrationPage.setEmailInput(userEmail);
 
         $(byText("Male")).click();
 
@@ -56,13 +60,20 @@ public class TestboxTest {
         $("#submit").scrollTo().click();
 
         $(".modal-header").shouldHave(text("Thanks for submitting the form"));
-        $(".table-responsive").shouldHave(text("Student Name John Michael Smith"), text("Student Email qwerty@gmail.com"),
-                text("Gender Male"), text("Mobile 8979674434"), text("Date of Birth 08 March,1995"),
-                text("Subjects Computer Science"), text("Hobbies Sports, Reading, Music"), text("Picture detroit.jpg"),
-                text("Address New York, 50"), text("State and City Rajasthan Jaipur"));
+
+        registrationPage.checkForm(firstName + lastName + "Student Name");
+        registrationPage.checkForm(userEmail + "Student Email");
+        registrationPage.checkForm("Gender Male");
+        registrationPage.checkForm("Mobile 8979674434");
+        registrationPage.checkForm("Date of Birth 08 March,1995");
+        registrationPage.checkForm("Subjects Computer Science");
+        registrationPage.checkForm("Hobbies Sports, Reading, Music");
+        registrationPage.checkForm("Picture detroit.jpg");
+        registrationPage.checkForm("Address New York, 50");
+        registrationPage.checkForm("State and City Rajasthan Jaipur");
+
     }
 }
-
 
 
 

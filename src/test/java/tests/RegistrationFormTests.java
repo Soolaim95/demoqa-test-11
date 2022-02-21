@@ -32,7 +32,7 @@ public class RegistrationFormTests {
 
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOptionByValue("2");
-        $(".react-datepicker__year-select").scrollTo().selectOptionByValue("1995");
+        $(".react-datepicker__year-select").selectOptionByValue("1995");
         $(".react-datepicker__day--008").click();
 
         $("#subjectsInput").setValue("science");

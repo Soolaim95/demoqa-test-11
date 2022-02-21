@@ -15,9 +15,17 @@ import static com.codeborne.selenide.Selenide.open;
 public class RegistrationFormWithPageObjectsTests {
 
     RegistrationPage registrationPage = new RegistrationPage();
-    String firstName = "John Michael";
-    String lastName = "Smith";
-    String userEmail = "qwerty@gmail.com";
+    String firstName = "John Michael",
+            lastName = "Smith",
+            userEmail = "qwerty@gmail.com",
+            gender  = "Male",
+            userNumber = "8979674434",
+            subjects = "Computer Science",
+            hobbies = "Sports" + "Music" + "Reading",
+            picture = "img.png",
+            address = "New York, 50",
+            state = "Rajasthan",
+            city = "Jaipur";
 
     @BeforeAll
     static void beforeAll() {
@@ -26,51 +34,38 @@ public class RegistrationFormWithPageObjectsTests {
     }
     @Test
     void successFillTest() {
-        open("/automation-practice-form");
-        $(".main-header").shouldHave(text("Practice Form"));
-
-        registrationPage.setFirstName(firstName);
-        registrationPage.setLastName(lastName);
-        registrationPage.setEmailInput(userEmail);
-
-        $(byText("Male")).click();
-
-        $("#userNumber").setValue("8979674434");
-
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOptionByValue("2");
-        $(".react-datepicker__year-select").scrollTo().selectOptionByValue("1995");
-        $(".react-datepicker__day--008").click();
-
-        $("#subjectsInput").setValue("science");
-        $(byText("Computer Science")).click();
-
-        $(byText("Sports")).click();
-        $(byText("Reading")).click();
-        $(byText("Music")).click();
-
-        $("#uploadPicture").uploadFile(new File("C:/Users/polia/Desktop/photos/detroit.jpg"));
-
-        $("#currentAddress").setValue("New York, 50");
-
-        $("#react-select-3-input").setValue("Rajasthan").pressEnter();
-        $("#react-select-4-input").setValue("Jaipur").pressEnter();
+        registrationPage.openPage()
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setEmailInput(userEmail)
+                .setGender(gender)
+                .setUserNumber(userNumber)
+                .setSubjectsInput(subjects)
+                .setHobbies(hobbies)
+                .setPicture(picture)
+                .setAddress(address)
+                .setState(state)
+                .setCity(city);
 
 
-        $("#submit").scrollTo().click();
+        registrationPage.setBirthDate("2", "1995");
+
+
+        // $("#submit").scrollTo().click();
 
         $(".modal-header").shouldHave(text("Thanks for submitting the form"));
 
-        registrationPage.checkForm(firstName + lastName + "Student Name");
-        registrationPage.checkForm(userEmail + "Student Email");
-        registrationPage.checkForm("Gender Male");
-        registrationPage.checkForm("Mobile 8979674434");
-        registrationPage.checkForm("Date of Birth 08 March,1995");
-        registrationPage.checkForm("Subjects Computer Science");
-        registrationPage.checkForm("Hobbies Sports, Reading, Music");
-        registrationPage.checkForm("Picture detroit.jpg");
-        registrationPage.checkForm("Address New York, 50");
-        registrationPage.checkForm("State and City Rajasthan Jaipur");
+        registrationPage
+                .checkForm("Student Name" + firstName + " " + lastName)
+                .checkForm("Student Email" + userEmail)
+                .checkForm("Gender" + gender)
+                .checkForm("Mobile" + userNumber)
+                .checkForm("Date of Birth 08 March,1995")
+                .checkForm("Subjects" + subjects)
+                .checkForm("Hobbies" + hobbies)
+                .checkForm("Picture" + picture)
+                .checkForm("Address" + address)
+                .checkForm("State and City" + state + city);
 
     }
 }

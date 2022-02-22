@@ -13,7 +13,7 @@ public class RegistrationFormWithPageObjectsTests {
             userEmail = "qwerty@gmail.com",
             gender  = "Male",
             userNumber = "8979674434",
-            day = "08",
+            day = "10",
             month = "March",
             year = "1995",
             subjects = "Computer Science",
@@ -35,7 +35,7 @@ public class RegistrationFormWithPageObjectsTests {
                 .setEmailInput(userEmail)
                 .selectGender(gender)
                 .setUserNumber(userNumber)
-                .setBirthDate(month, year)
+                .setBirthDate(day, month, year)
                 .setSubjectsInput(subjects)
                 .selectHobbies(hobbies)
                 .setPicture(picture)

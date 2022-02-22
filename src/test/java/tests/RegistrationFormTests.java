@@ -42,7 +42,7 @@ public class RegistrationFormTests {
         $(byText("Reading")).click();
         $(byText("Music")).click();
 
-        $("#uploadPicture").uploadFile(new File("C:/Users/polia/Desktop/photos/detroit.jpg"));
+        $("#uploadPicture").uploadFromClasspath("img/img.png");
 
         $("#currentAddress").setValue("New York, 50");
 
@@ -50,12 +50,12 @@ public class RegistrationFormTests {
         $("#react-select-4-input").setValue("Jaipur").pressEnter();
 
 
-        $("#submit").scrollTo().click();
+        $("#submit").click();
 
         $(".modal-header").shouldHave(text("Thanks for submitting the form"));
         $(".table-responsive").shouldHave(text("Student Name John Michael Smith"), text("Student Email qwerty@gmail.com"),
                 text("Gender Male"), text("Mobile 8979674434"), text("Date of Birth 08 March,1995"),
-                text("Subjects Computer Science"), text("Hobbies Sports, Reading, Music"), text("Picture detroit.jpg"),
+                text("Subjects Computer Science"), text("Hobbies Sports, Reading, Music"), text("Picture img.png"),
                 text("Address New York, 50"), text("State and City Rajasthan Jaipur"));
     }
 }

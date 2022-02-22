@@ -1,6 +1,7 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
+import pages.components.CalendarComponent;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
@@ -9,23 +10,23 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class RegistrationPage {
 
-    //locators
+    CalendarComponent calendarComponent = new CalendarComponent();
+
     final private SelenideElement
             headerTitle = $(".main-header"),
             firstNameInput = $("#firstName"),
             lastNameInput = $("#lastName"),
             emailInput = $("#userEmail"),
             userNumberInput = $("#userNumber"),
+            calendarForm = $("#dateOfBirthInput"),
             subjectsInput = $("#subjectsInput"),
             selectPicture = $("#uploadPicture"),
             addressInput = $("#currentAddress"),
             selectState = $("#react-select-3-input"),
             selectCity = $("#react-select-4-input"),
+            submitButton = $("#submit"),
+            headerTable = $(".modal-header"),
             resultsTable = $(".table-responsive");
-
-
-
-    //actions
 
     public RegistrationPage openPage() {
         open("/automation-practice-form");
@@ -33,12 +34,8 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage setFirstName(String firstName) {
+    public RegistrationPage setName(String firstName, String lastName) {
         firstNameInput.setValue(firstName);
-        return this;
-    }
-
-    public RegistrationPage setLastName(String lastName) {
         lastNameInput.setValue(lastName);
         return this;
     }
@@ -48,8 +45,8 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage setGender(String gender) {
-        $(byText("Male")).click();
+    public RegistrationPage selectGender(String gender) {
+        $(byText(gender)).click();
         return this;
     }
 
@@ -60,20 +57,17 @@ public class RegistrationPage {
 
 
     public RegistrationPage setBirthDate(String month, String year) {
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOptionByValue("2");
-        $(".react-datepicker__year-select").selectOptionByValue("1995");
-        $(".react-datepicker__day--008").click();
+        calendarForm.click();
+        calendarComponent.setDate(month, year);
         return this;
     }
 
     public RegistrationPage setSubjectsInput(String subjects) {
-        subjectsInput.setValue("science");
-        $(byText("Computer Science")).click();
+        subjectsInput.setValue(subjects).pressEnter();
         return this;
     }
 
-    public RegistrationPage setHobbies(String hobbies) {
+    public RegistrationPage selectHobbies(String hobbies) {
         $(byText("Sports")).click();
         $(byText("Reading")).click();
         $(byText("Music")).click();
@@ -85,25 +79,22 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage setAddress(String address) {
-        addressInput.setValue("New York, 50");
+    public RegistrationPage setAddress(String address, String state, String city) {
+        addressInput.setValue(address);
+        selectState.setValue(state).pressEnter();
+        selectCity.setValue(city).pressEnter();
         return this;
     }
 
-    public RegistrationPage setState(String state) {
-        selectState.setValue("Rajasthan").pressEnter();
+    public RegistrationPage clickButton() {
+        submitButton.click();
         return this;
     }
 
-    public RegistrationPage setCity(String city) {
-        selectCity.setValue("Jaipur").pressEnter();
+    public RegistrationPage checkForm(String fieldName, String value) {
+        headerTable.shouldHave(text("Thanks for submitting the form"));
+        resultsTable.shouldHave(text (fieldName), text(value));
         return this;
     }
-
-    public RegistrationPage checkForm(String value) {
-        resultsTable.shouldHave(text(value));
-        return this;
-    }
-
 
 }

@@ -5,13 +5,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 
-import java.io.File;
-
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
-
 public class RegistrationFormWithPageObjectsTests {
 
     RegistrationPage registrationPage = new RegistrationPage();
@@ -20,8 +13,11 @@ public class RegistrationFormWithPageObjectsTests {
             userEmail = "qwerty@gmail.com",
             gender  = "Male",
             userNumber = "8979674434",
+            day = "08",
+            month = "March",
+            year = "1995",
             subjects = "Computer Science",
-            hobbies = "Sports" + "Music" + "Reading",
+            hobbies = "Sports" + "," + " " + "Reading" + "," + " " + "Music",
             picture = "img.png",
             address = "New York, 50",
             state = "Rajasthan",
@@ -35,39 +31,31 @@ public class RegistrationFormWithPageObjectsTests {
     @Test
     void successFillTest() {
         registrationPage.openPage()
-                .setFirstName(firstName)
-                .setLastName(lastName)
+                .setName(firstName, lastName)
                 .setEmailInput(userEmail)
-                .setGender(gender)
+                .selectGender(gender)
                 .setUserNumber(userNumber)
+                .setBirthDate(month, year)
                 .setSubjectsInput(subjects)
-                .setHobbies(hobbies)
+                .selectHobbies(hobbies)
                 .setPicture(picture)
-                .setAddress(address)
-                .setState(state)
-                .setCity(city);
-
-
-        registrationPage.setBirthDate("2", "1995");
-
-
-        // $("#submit").scrollTo().click();
-
-        $(".modal-header").shouldHave(text("Thanks for submitting the form"));
+                .setAddress(address, state, city)
+                .clickButton();
 
         registrationPage
-                .checkForm("Student Name" + firstName + " " + lastName)
-                .checkForm("Student Email" + userEmail)
-                .checkForm("Gender" + gender)
-                .checkForm("Mobile" + userNumber)
-                .checkForm("Date of Birth 08 March,1995")
-                .checkForm("Subjects" + subjects)
-                .checkForm("Hobbies" + hobbies)
-                .checkForm("Picture" + picture)
-                .checkForm("Address" + address)
-                .checkForm("State and City" + state + city);
+                .checkForm("Student Name", firstName + " " + lastName)
+                .checkForm("Student Email", userEmail)
+                .checkForm("Gender", gender)
+                .checkForm("Mobile", userNumber)
+                .checkForm("Date of Birth", day + " " + month + "," + year)
+                .checkForm("Subjects", subjects)
+                .checkForm("Hobbies", hobbies)
+                .checkForm("Picture", picture)
+                .checkForm("Address", address)
+                .checkForm("State and City", state + " " + city);
 
     }
+
 }
 
 

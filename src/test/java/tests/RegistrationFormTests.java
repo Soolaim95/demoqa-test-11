@@ -22,17 +22,17 @@ public class RegistrationFormTests {
         open("/automation-practice-form");
         $(".main-header").shouldHave(text("Practice Form"));
 
-        $("#firstName").setValue("John Michael");
+        $("#firstName").setValue("Ivan Smith");
         $("#lastName").setValue("Smith");
         $("#userEmail").setValue("qwerty@gmail.com");
 
         $(byText("Male")).click();
 
-        $("#userNumber").setValue("8979674434");
+        $("#userNumber").setValue("89802836378");
 
         $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOptionByValue("2");
-        $(".react-datepicker__year-select").selectOptionByValue("1995");
+        $(".react-datepicker__month-select").selectOptionByValue("3");
+        $(".react-datepicker__year-select").selectOptionByValue("1996");
         $(".react-datepicker__day--008").click();
 
         $("#subjectsInput").setValue("science");

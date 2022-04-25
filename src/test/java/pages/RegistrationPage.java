@@ -57,7 +57,7 @@ public class RegistrationPage {
 
 
     public RegistrationPage setBirthDate(String day, String month, String year) {
-        calendarForm.click();
+        calendarForm.scrollTo().click();
         calendarComponent.setDate(day, month, year);
         return this;
     }

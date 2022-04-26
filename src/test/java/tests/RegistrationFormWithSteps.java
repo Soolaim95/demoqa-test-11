@@ -1,15 +1,18 @@
 package tests;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import helpers.Attach;
 import io.qameta.allure.*;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import pages.RegistrationPage;
+
+import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class RegistrationFormWithSteps {
 
@@ -37,23 +40,34 @@ public class RegistrationFormWithSteps {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.browserSize = "593x593";
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("enableVNC", true);
+        capabilities.setCapability("enableVideo", true);
+        Configuration.browserCapabilities = capabilities;
     }
 
     @AfterEach
-    void closeBrowser() {
-        Selenide.closeWebDriver();
+    void addAttachments() {
+        Attach.screenshotAs("Table screenshot");
+        Attach.pageSource();
+        Attach.browserConsoleLogs();
+        Attach.addVideo();
+        closeWebDriver();
     }
 
     @Test
     @Owner("polyakovaea")
     @Severity(SeverityLevel.CRITICAL)
-    @Feature("Р РµРіРёСЃС‚СЂР°С†РёРѕРЅРЅР°СЏ С„РѕСЂРјР° СЃС‚СѓРґРµРЅС‚Р°") //РЅР°Р·РІР°РЅРёРµ С„СѓРЅРєС†РёРѕРЅР°Р»СЊРЅРѕСЃС‚Рё
-    @Story("Р—Р°РїРѕР»РЅРµРЅРёРµ С„РѕСЂРјС‹ Рё РѕС‚РїСЂР°РІРєР° РґР°РЅРЅС‹С… СЃС‚СѓРґРµРЅС‚Р°") //РєСЂР°С‚РєРѕРµ РѕР±С‰РµРµ РѕРїРёСЃР°РЅРёРµ РґР»СЏ РіСЂСѓРїРїРёСЂРѕРІРєРё С‚РµСЃС‚РѕРІ
-    @DisplayName("РџСЂРѕРІРµСЂРєР° СЃРѕРѕС‚РІРµС‚СЃС‚РІРёСЏ РІРІРµРґРµРЅС‹С… РґР°РЅРЅС‹С… СЃС‚СѓРґРµРЅС‚Р° РІ С„РѕСЂРјСѓ Рё РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹С… Р·РЅР°С‡РµРЅРёР№ РІ С‚Р°Р±Р»РёС†Рµ")
+    @Feature("Регистрационная форма студента") //название функциональности
+    @Story("Заполнение формы и отправка данных студента") //краткое общее описание для группировки тестов
+    @DisplayName("Проверка соответствия введеных данных студента в форму и отображаемых значений в таблице")
     @Description(
-            "Р­С‚РѕС‚ С‚РµСЃС‚ РїСЂРѕРІРµСЂСЏРµС‚ Р·Р°РїРѕР»РЅРµРЅРёРµ РІСЃРµС… РїРѕР»РµР№ СЂРµРіРёСЃС‚СЂ. С„РѕСЂРјС‹ Рё РєРѕСЂСЂРµРєС‚РЅРѕРµ РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ РІРІРµРґРµРЅРЅС‹С… РґР°РЅРЅС‹С… РІ С‚Р°Р±Р»РёС†Рµ"
-    ) //РїРѕРґСЂРѕР±РЅРѕРµ РѕРїРёСЃР°РЅРёРµ
-    @Link(value = "demoqa", url = "https://demoqa.com") //url С‚РµСЃС‚РёСЂСѓРµРјРѕР№ СЃС‚СЂР°РЅРёС†С‹
+            "Этот тест проверяет заполнение всех полей регистр. формы и корректное отображение введенных данных в таблице"
+    ) //подробное описание
+    @Link(value = "demoqa", url = "https://demoqa.com") //url тестируемой страницы
+
     void successFillTest() {
         steps.openPage(FORM);
         steps.setName(firstName, lastName);

@@ -29,119 +29,119 @@ public class RegistrationPage {
             headerTable = $(".modal-header"),
             resultsTable = $(".table-responsive");
 
-    @Step("РћС‚РєСЂС‹РІР°РµРј СЃС‚СЂР°РЅРёС†Сѓ {form}")
+    @Step("Открываем страницу {form}")
     public void openPage(String form) {
         open("/automation-practice-form");
         headerTitle.shouldHave(text(form));
     }
 
-    @Step("Р’РІРѕРґРёРј С„Р°РјРёР»РёСЋ, РёРјСЏ")
+    @Step("Вводим фамилию, имя")
     public void setName(String firstName, String lastName) {
         firstNameInput.setValue(firstName);
         lastNameInput.setValue(lastName);
     }
 
-    @Step("Р’РІРѕРґРёРј email")
+    @Step("Вводим email")
     public void setEmailInput(String userEmail) {
         emailInput.setValue(userEmail);
     }
 
-    @Step("Р’С‹Р±РёСЂР°РµРј РїРѕР»")
+    @Step("Выбираем пол")
     public void selectGender(String gender) {
         $(byText(gender)).click();
     }
 
-    @Step("Р’РІРѕРґРёРј РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°")
+    @Step("Вводим номер телефона")
     public void setUserNumber(String userNumber) {
         userNumberInput.setValue(userNumber);
     }
 
-    @Step("Р’С‹Р±РёСЂР°РµРј РґР°С‚Сѓ СЂРѕР¶РґРµРЅРёСЏ")
+    @Step("Выбираем дату рождения")
     public void setBirthDate(String day, String month, String year) {
         calendarForm.scrollTo().click();
         calendarComponent.setDate(day, month, year);
     }
 
-    @Step("Р’С‹Р±РёСЂР°РµРј РїСЂРµРґРјРµС‚С‹")
+    @Step("Выбираем предметы")
     public void setSubjectsInput(String subjects) {
         subjectsInput.setValue(subjects).pressEnter();
     }
 
-    @Step("Р’С‹Р±РёСЂР°РµРј С…РѕР±Р±Рё")
+    @Step("Выбираем хобби")
     public void selectHobbies(String hobbies) {
         $(byText("Sports")).click();
         $(byText("Reading")).click();
         $(byText("Music")).click();
     }
 
-    @Step("Р—Р°РіСЂСѓР¶Р°РµРј РєР°СЂС‚РёРЅРєСѓ")
+    @Step("Загружаем картинку")
     public void setPicture(String picture) {
         selectPicture.uploadFromClasspath("img/img.png");
     }
 
-    @Step("Р’РІРѕРґРёРј Р°РґСЂРµСЃ")
+    @Step("Вводим адрес")
     public void setAddress(String address, String state, String city) {
         addressInput.setValue(address);
         selectState.setValue(state).pressEnter();
         selectCity.setValue(city).pressEnter();
     }
 
-    @Step("РќР°Р¶РёРјР°РµРј РЅР° РєРЅРѕРїРєСѓ Submit")
+    @Step("Нажимаем на кнопку Submit")
     public void clickButton() {
         submitButton.click();
     }
 
-    @Step("РџСЂРѕРІРµСЂСЏРµРј Р·Р°РіРѕР»РѕРІРѕРє РѕС‚РєСЂС‹РІС€РµР№СЃСЏ С‚Р°Р±Р»РёС†С‹ ({title})")
+    @Step("Проверяем заголовок открывшейся таблицы ({title})")
     public void checkTitle(String title) {
         headerTable.shouldHave(text(title));
     }
 
-    @Step("РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ РґР°РЅРЅС‹Рµ РІ С‚Р°Р±Р»РёС†Рµ РІ РїРѕР»Рµ Student Name СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‚ РІРІРµРґРµРЅРЅС‹Рј Р·РЅР°С‡РµРЅРёСЏРј")
+    @Step("Проверяем, что данные в таблице в поле Student Name соответствуют введенным значениям")
     public void checkName(String fieldName, String value) {
         resultsTable.shouldHave(text(fieldName), text(value));
     }
 
-    @Step("РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ РґР°РЅРЅС‹Рµ РІ С‚Р°Р±Р»РёС†Рµ РІ РїРѕР»Рµ Student Email СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‚ РІРІРµРґРµРЅРЅС‹Рј Р·РЅР°С‡РµРЅРёСЏРј")
+    @Step("Проверяем, что данные в таблице в поле Student Email соответствуют введенным значениям")
     public void checkEmail(String fieldName, String value) {
         resultsTable.shouldHave(text(fieldName), text(value));
     }
 
-    @Step("РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ РґР°РЅРЅС‹Рµ РІ С‚Р°Р±Р»РёС†Рµ РІ РїРѕР»Рµ Gender СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‚ РІС‹Р±СЂР°РЅРЅРѕРјСѓ Р·РЅР°С‡РµРЅРёСЋ")
+    @Step("Проверяем, что данные в таблице в поле Gender соответствуют выбранному значению")
     public void checkGender(String fieldName, String value) {
         resultsTable.shouldHave(text(fieldName), text(value));
     }
 
-    @Step("РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ РґР°РЅРЅС‹Рµ РІ С‚Р°Р±Р»РёС†Рµ РІ РїРѕР»Рµ Mobile СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‚ РІРІРµРґРµРЅРЅС‹РјСѓ Р·РЅР°С‡РµРЅРёСЋ")
+    @Step("Проверяем, что данные в таблице в поле Mobile соответствуют введенныму значению")
     public void checkPhone(String fieldName, String value) {
         resultsTable.shouldHave(text(fieldName), text(value));
     }
 
-    @Step("РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ РґР°РЅРЅС‹Рµ РІ С‚Р°Р±Р»РёС†Рµ РІ РїРѕР»Рµ Date of Birth СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‚ РІС‹Р±СЂР°РЅРЅРѕРјСѓ Р·РЅР°С‡РµРЅРёСЋ")
+    @Step("Проверяем, что данные в таблице в поле Date of Birth соответствуют выбранному значению")
     public void checkDate(String fieldName, String value) {
         resultsTable.shouldHave(text(fieldName), text(value));
     }
 
-    @Step("РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ РґР°РЅРЅС‹Рµ РІ С‚Р°Р±Р»РёС†Рµ РІ РїРѕР»Рµ Subjects СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‚ РІС‹Р±СЂР°РЅРЅС‹Рј Р·РЅР°С‡РµРЅРёСЏРј")
+    @Step("Проверяем, что данные в таблице в поле Subjects соответствуют выбранным значениям")
     public void checkSubj(String fieldName, String value) {
         resultsTable.shouldHave(text(fieldName), text(value));
     }
 
-    @Step("РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ РґР°РЅРЅС‹Рµ РІ С‚Р°Р±Р»РёС†Рµ РІ РїРѕР»Рµ Hobbies СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‚ РІС‹Р±СЂР°РЅРЅС‹Рј Р·РЅР°С‡РµРЅРёСЏРј")
+    @Step("Проверяем, что данные в таблице в поле Hobbies соответствуют выбранным значениям")
     public void checkHobbies(String fieldName, String value) {
         resultsTable.shouldHave(text(fieldName), text(value));
     }
 
-    @Step("РџСЂРѕРІРµСЂСЏРµРј РІ С‚Р°Р±Р»РёС†Рµ РІ РїРѕР»Рµ Picture, С‡С‚Рѕ РЅР°Р·РІР°РЅРёРµ СЃРѕРІРїР°РґР°РµС‚ СЃ РЅР°Р·РІР°РЅРёРµРј Р·Р°РіСЂСѓР¶РµРЅРЅРѕР№ РєР°СЂС‚РёРЅРєРё")
+    @Step("Проверяем в таблице в поле Picture, что название совпадает с названием загруженной картинки")
     public void checkPic(String fieldName, String value) {
         resultsTable.shouldHave(text(fieldName), text(value));
     }
 
-    @Step("РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ РґР°РЅРЅС‹Рµ РІ С‚Р°Р±Р»РёС†Рµ РІ РїРѕР»Рµ Address СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‚ РІРІРµРґРµРЅРЅРѕРјСѓ Р·РЅР°С‡РµРЅРёСЋ")
+    @Step("Проверяем, что данные в таблице в поле Address соответствуют введенному значению")
     public void checkAddress(String fieldName, String value) {
         resultsTable.shouldHave(text(fieldName), text(value));
     }
 
-    @Step("РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ РґР°РЅРЅС‹Рµ РІ С‚Р°Р±Р»РёС†Рµ РІ РїРѕР»Рµ State and City СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‚ РІС‹Р±СЂР°РЅРЅС‹Рј Р·РЅР°С‡РµРЅРёСЏРј")
+    @Step("Проверяем, что данные в таблице в поле State and City соответствуют выбранным значениям")
     public void checkStateCity(String fieldName, String value) {
         resultsTable.shouldHave(text(fieldName), text(value));
     }

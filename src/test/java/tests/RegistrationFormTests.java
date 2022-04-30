@@ -41,7 +41,7 @@ public class RegistrationFormTests {
 
         $("#userNumber").setValue("89802836378");
 
-        $("#dateOfBirthInput").click();
+        $("#dateOfBirthInput").scrollTo().click();
         $(".react-datepicker__month-select").selectOptionByValue("3");
         $(".react-datepicker__year-select").selectOptionByValue("1996");
         $(".react-datepicker__day--008").click();
@@ -64,7 +64,7 @@ public class RegistrationFormTests {
         $("#submit").click();
 
         $(".modal-header").shouldHave(text("Thanks for submitting the form"));
-        $(".table-responsive").shouldHave(text("Student Name John Michael Smith"), text("Student Email qwerty@gmail.com"),
+        $(".table-responsive").shouldHave(text("Student Name Ivan Smith Smith"), text("Student Email qwerty@gmail.com"),
                 text("Gender Male"), text("Mobile 8979674434"), text("Date of Birth 08 March,1995"),
                 text("Subjects Computer Science"), text("Hobbies Sports, Reading, Music"), text("Picture img.png"),
                 text("Address New York, 50"), text("State and City Rajasthan Jaipur"));

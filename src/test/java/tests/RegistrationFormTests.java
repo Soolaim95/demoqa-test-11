@@ -39,7 +39,7 @@ public class RegistrationFormTests {
 
         $(byText("Male")).click();
 
-        $("#userNumber").setValue("89802836378");
+        $("#userNumber").setValue("8980283637");
 
         $("#dateOfBirthInput").scrollTo().click();
         $(".react-datepicker__month-select").selectOptionByValue("3");
@@ -65,7 +65,7 @@ public class RegistrationFormTests {
 
         $(".modal-header").shouldHave(text("Thanks for submitting the form"));
         $(".table-responsive").shouldHave(text("Student Name Ivan Smith Smith"), text("Student Email qwerty@gmail.com"),
-                text("Gender Male"), text("Mobile 8979674434"), text("Date of Birth 08 March,1995"),
+                text("Gender Male"), text("Mobile 8980283637"), text("Date of Birth 08 April,1996"),
                 text("Subjects Computer Science"), text("Hobbies Sports, Reading, Music"), text("Picture img.png"),
                 text("Address New York, 50"), text("State and City Rajasthan Jaipur"));
     }
